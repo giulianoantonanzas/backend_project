@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Venta;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class VentaController extends Controller
 {
@@ -14,7 +15,10 @@ class VentaController extends Controller
      */
     public function index()
     {
-        $ventas['ventas']=Venta::paginate();
+        $ventas['ventas']=DB::select('SELECT v.id, v.factura_id ,f.fecha_facturacion,c.nombre,c.apellido,df.total_pagar 
+        FROM ventas v,  facturas f ,clientes c, detalle_facturas df
+        WHERE v.factura_id=f.id and f.cliente_id=c.id and f.detalle_factura_id =df.id');
+
         return view('ventas.ventas',$ventas);
     }
 

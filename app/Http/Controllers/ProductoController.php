@@ -14,7 +14,7 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        $productos['productos']=Producto::paginate(); // retorna los productos de la base de datos.
+        $productos['productos']=Producto::all(); // retorna los productos de la base de datos.
         return view('productos.productos',$productos); //gemero la vista de productos.blade.php y le envio como parametro , los productos buscados de la bd.
     }
 
