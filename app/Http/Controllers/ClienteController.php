@@ -14,7 +14,8 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        //
+        $clientes['clientes']=Cliente::paginate();//trae a los clientes de la base de datos.
+        return view("clientes.clientes", $clientes);//creo la vista de clientes (clientes.blade.php) y le envio como parametro los clientes traido de la base de datos
     }
 
     /**

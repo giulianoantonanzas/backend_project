@@ -14,7 +14,8 @@ class VentaController extends Controller
      */
     public function index()
     {
-        //
+        $ventas['ventas']=Venta::paginate();
+        return view('ventas.ventas',$ventas);
     }
 
     /**
