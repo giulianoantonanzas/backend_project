@@ -16,3 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('home.home');
 });
+
+
+//enruto el controlador de post
+//este controlador contiene toda la logica de 'post', la visualisacion y la logica de la base de datos.
+//revisar que dentro del controlador, redireccionos a los view. Esto se cumplira segun si genero un GET, POST o PUT
+Route::resource('post', 'PostController');
