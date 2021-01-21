@@ -18,7 +18,10 @@ Route::get('/', function () {
 });
 
 
-//enruto el controlador de post
-//este controlador contiene toda la logica de 'post', la visualisacion y la logica de la base de datos.
+//enruto el controlador de cliente
+//este controlador contiene toda la logica de 'cliente', la visualisacion y la logica de la base de datos.
 //revisar que dentro del controlador, redireccionos a los view. Esto se cumplira segun si genero un GET, POST o PUT
-Route::resource('post', 'PostController');
+Route::resource('Cliente', 'ClienteController');
+
+Route::resource('Producto', 'ProductoController');
+Route::resource('Venta', 'VentaController');

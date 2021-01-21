@@ -14,7 +14,7 @@ class CreateDetalleFacturasTable extends Migration
     public function up()
     {
         Schema::create('detalle_facturas', function (Blueprint $table) {
-            $table->unsignedBigInteger("id_detalle_factura")->autoIncrement();
+            $table->bigIncrements("id");
             $table->integer("iva");
             $table->float("total_pagar");
             $table->timestamps();

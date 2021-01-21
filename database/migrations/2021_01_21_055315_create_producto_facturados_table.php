@@ -14,10 +14,17 @@ class CreateProductoFacturadosTable extends Migration
     public function up()
     {
         Schema::create('producto_facturados', function (Blueprint $table) {
-            $table->unsignedBigInteger("id_producto_faturado")->autoIncrement();
+            $table->bigIncrements("id");
+            $table->unsignedBigInteger('detalle_factura_id');//creo la columna que sera transformada en fk
+            $table->unsignedBigInteger('producto_id');//creo la columna que sera transformada en fk
+
             $table->integer("cantidad");
-            $table->foreign("fk_detalle_factura")->references("id_detalle_factura")->on("detalle_facturas");
-            $table->foreign("fk_producto")->references("id_producto")->on("productos");
+
+            $table->foreign("detalle_factura_id")->references("id")->on("detalle_facturas")//transformo la columna en una fk
+            ->onDelete("cascade")
+            ->onUpdate("cascade");
+            
+            $table->foreign("producto_id")->references("id")->on("productos");
             $table->timestamps();
         });
     }

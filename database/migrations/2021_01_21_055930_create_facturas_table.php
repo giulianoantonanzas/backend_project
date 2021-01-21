@@ -14,11 +14,19 @@ class CreateFacturasTable extends Migration
     public function up()
     {
         Schema::create('facturas', function (Blueprint $table) {
-            $table->unsignedBigInteger("id_factura")->autoIncrement();
+            $table->bigIncrements("id");
+            $table->unsignedBigInteger('cliente_id');
+            $table->unsignedBigInteger('detalle_factura_id');
+
             $table->text("tipo");
             $table->date("fecha_facturacion");
-            $table->foreign("fk_cliente")->references('id_cliente')->on('clientes');
-            $table->foreign("fk_detalle_factura")->references('id_detalle_factura')->on('detalle_facturas');
+
+            $table->foreign("cliente_id")->references('id')->on('clientes');
+            
+            $table->foreign("detalle_factura_id")->references('id')->on('detalle_facturas')
+            ->onDelete("cascade")
+            ->onUpdate("cascade");
+
             $table->timestamps();
         });
     }

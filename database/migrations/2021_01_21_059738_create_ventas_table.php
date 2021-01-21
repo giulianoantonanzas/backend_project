@@ -14,9 +14,13 @@ class CreateVentasTable extends Migration
     public function up()
     {
         Schema::create('ventas', function (Blueprint $table) {
-            $table->unsignedBigInteger("id_venta")->autoIncrement();
+            $table->bigIncrements("id");
+            
             //foreingkey - digo que una venta tiene una factura, que la enlazo desde fk_factura con el id_factura.
-            $table->foreignId('fk_factura')->references("id_facutra")->on('facturas'); 
+            $table->foreignId('factura_id')->references("id")->on('facturas')
+            ->onDelete("cascade")
+            ->onUpdate("cascade");
+
             $table->timestamps();
         });
     }
