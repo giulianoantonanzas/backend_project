@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePostsTable extends Migration
+class CreateDetalleFacturasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,10 @@ class CreatePostsTable extends Migration
      */
     public function up()
     {
-        Schema::create('posts', function (Blueprint $table) {
-            //crea los valores de post en la base de dato.
-            $table->id();
-            $table->text('title');
-            $table->text('summary');
-            $table->text('image');
-            $table->text('description');
+        Schema::create('detalle_facturas', function (Blueprint $table) {
+            $table->unsignedBigInteger("id_detalle_factura")->autoIncrement();
+            $table->integer("iva");
+            $table->float("total_pagar");
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ class CreatePostsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('detalle_facturas');
     }
 }
