@@ -15,6 +15,7 @@ class VentaController extends Controller
      */
     public function index()
     {
+        // consulta sql , traigo las ventas con todas sus relaciones.
         $ventas['ventas']=DB::select('SELECT v.id, v.factura_id ,f.fecha_facturacion,c.nombre,c.apellido,df.total_pagar 
         FROM ventas v,  facturas f ,clientes c, detalle_facturas df
         WHERE v.factura_id=f.id and f.cliente_id=c.id and f.detalle_factura_id =df.id');

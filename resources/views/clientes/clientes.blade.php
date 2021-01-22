@@ -28,10 +28,16 @@
                             <td>{{ $clientes[$i]->fecha_nacimiento }}</td>
                             <td>{{ $clientes[$i]->telefono }}</td>
                             <td>{{ $clientes[$i]->ubicacion }}</td>
+                            <td><a class="btn btn-primary" href="#" role="button">Editar</a></td>
+                            <td><a class="btn btn-primary" href="#" role="button">Eliminar</a></td>
                         </tr>
                     @endfor
                 </tbody>
             </table>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <a class="btn btn-primary m-2" href="clientes/create" role="button">Agregar</a>
+                <a class="btn btn-primary m-2" href="/" role="button">Volver</a>
+              </div>
         </div>
     </main>
 @endsection

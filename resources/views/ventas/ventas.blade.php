@@ -11,14 +11,11 @@
                         <th scope="col">id</th>
                         <th scope="col">id factura</th>
                         <th scope="col">fecha de facturacion</th>
-                        <th scope="col">nombre</th>
-                        <th scope="col">apellido</th>
+                        <th scope="col">cliente</th>
                         <th scope="col">total a pagar</th>
                     </tr>
                 </thead>
-
-
-
+                
                 <tbody>
                     <!-- recorro los clientes que me envia el controlador y los muestro en una tabla -->
                     @for ($i = 0; $i < count($ventas); $i++)
@@ -26,15 +23,20 @@
                             <th scope="row">{{ $ventas[$i]->id }}</th>
                             <td>{{ $ventas[$i]->factura_id }}</td>
                             <td>{{ $ventas[$i]->fecha_facturacion }}</td>
-                            <td>{{ $ventas[$i]->nombre }} </td>
-                            <td>{{ $ventas[$i]->apellido }} </td>
+                            <!-- con el '.' concateno los strings-->
+                            <td>{{$ventas[$i]->nombre." ".$ventas[$i]->apellido}} </td>
                             <td>{{ $ventas[$i]->total_pagar }} </td>
+                            <td><a class="btn btn-primary" href="#" role="button">Editar</a></td>
+                            <td><a class="btn btn-primary" href="#" role="button">Eliminar</a></td>
                         </tr>
                     @endfor
                 </tbody>
             </table>
 
-            
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <a class="btn btn-primary m-2" href="ventas/create" role="button">Agregar</a>
+                <a class="btn btn-primary m-2" href="/" role="button">Volver</a>
+            </div>
         </div>
     </main>
 @endsection
