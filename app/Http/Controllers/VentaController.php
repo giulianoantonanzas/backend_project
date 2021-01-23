@@ -20,7 +20,7 @@ class VentaController extends Controller
         FROM ventas v,  facturas f ,clientes c, detalle_facturas df
         WHERE v.factura_id=f.id and f.cliente_id=c.id and f.detalle_factura_id =df.id');
 
-        return view('ventas.ventas',$ventas);
+        return view('ventas.index',$ventas);
     }
 
     /**

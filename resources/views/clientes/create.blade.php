@@ -1,9 +1,12 @@
 @extends('base')
-@section('title') nuevo cliente @endsection
+@section('title') Edit Cliente @endsection
 @section('content')
     <div>
-        <h2 class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">Nuevo Cliente :</h2>
-        <form id="crearCliente" action="" method="post">
+        <h2 class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">Nuevo Cliente</h2>
+
+        <form id="crearCliente" action="{{route('clientes.store')}}" method="post" enctype="multipart/form-data">
+            <!-- indagar mas sobre esto. al pareecr, crea un token y encripta la informacion-->
+            {{ csrf_field() }}
             <div class="input-group mb-3">
                 <input type="text" id="nombre" name="nombre" placeholder="Nombre">
             </div>
@@ -21,7 +24,7 @@
             </div>
 
             <div class="input-group mb-3">
-                <input type="date" id="fechaNacimiento" name="fecha de nacimiento">
+                <input type="date" id="fechaNacimiento" name="fecha nacimiento">
                 <label for="fechaNacimiento"> Fecha de nacimiento</label>
             </div>
 

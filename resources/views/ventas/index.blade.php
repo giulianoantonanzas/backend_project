@@ -34,7 +34,7 @@
             </table>
 
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <a class="btn btn-primary m-2" href="ventas/create" role="button">Agregar</a>
+                <a class="btn btn-primary m-2" href="{{route('ventas.create')}}" role="button">Agregar</a>
                 <a class="btn btn-primary m-2" href="/" role="button">Volver</a>
             </div>
         </div>

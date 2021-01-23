@@ -15,7 +15,7 @@ class ProductoController extends Controller
     public function index()
     {
         $productos['productos']=Producto::all(); // retorna los productos de la base de datos.
-        return view('productos.productos',$productos); //gemero la vista de productos.blade.php y le envio como parametro , los productos buscados de la bd.
+        return view('productos.index',$productos); //gemero la vista de productos.blade.php y le envio como parametro , los productos buscados de la bd.
     }
 
     /**
@@ -25,7 +25,7 @@ class ProductoController extends Controller
      */
     public function create()
     {
-        return view('productos.productoForm');
+        return view('productos.create');
     }
 
     /**
@@ -36,7 +36,11 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //desencripta la desinformacion que hay en el token?
+        $data = $request->except('_token');
+        //inserta la informacion
+        Producto::insert($data);
+        return redirect()->route('producto.index');
     }
 
     /**

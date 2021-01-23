@@ -14,8 +14,8 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        $clientes['clientes']=Cliente::all();//trae todos los clientes de la base de datos.
-        return view("clientes.clientes", $clientes);//creo la vista de clientes (clientes.blade.php) y le envio como parametro los clientes traido de la base de datos
+        $clientes['clientes'] = Cliente::all(); //trae todos los clientes de la base de datos.
+        return view("clientes.index", $clientes); //creo la vista de clientes (clientes.blade.php) y le envio como parametro los clientes traido de la base de datos
     }
 
     /**
@@ -25,7 +25,7 @@ class ClienteController extends Controller
      */
     public function create()
     {
-        return view('clientes.clienteForm');
+        return view('clientes.create');
     }
 
     /**
@@ -36,7 +36,11 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //desencripta la desinformacion que hay en el token?
+        $data = $request->except('_token');
+        //inserta la informacion
+        Cliente::insert($data);
+        return redirect()->route('clientes.index');
     }
 
     /**
@@ -58,7 +62,7 @@ class ClienteController extends Controller
      */
     public function edit(Cliente $cliente)
     {
-        //
+        return view('clientes.edit', $cliente);
     }
 
     /**
@@ -68,9 +72,14 @@ class ClienteController extends Controller
      * @param  \App\Cliente  $cliente
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Cliente $cliente)
+    public function update(Request $request,$id)
     {
-        //
+        //quiero profundisar mas de como es que obtine los datos del form
+        $data = $request->except('_token','_method');
+
+        //obtengo el cliente que tiene el mismo id y pongo la informacion que traje del formulario
+        Cliente::where('id','=', $id)->update($data);
+        return redirect()->route("clientes.index");
     }
 
     /**
@@ -79,8 +88,9 @@ class ClienteController extends Controller
      * @param  \App\Cliente  $cliente
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Cliente $cliente)
+    public function destroy($id)
     {
-        //
+        Cliente::destroy($id);
+        return redirect()->route("clientes.index");
     }
 }
