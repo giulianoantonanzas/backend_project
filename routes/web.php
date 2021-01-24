@@ -21,7 +21,7 @@ Route::get('/', function () {
 //enruto el controlador de cliente
 //este controlador contiene toda la logica de 'cliente', la visualisacion y la logica de la base de datos.
 //revisar que dentro del controlador, redireccionos a los view. Esto se cumplira segun si genero un GET, POST o PUT
-Route::resource('clientes', 'ClienteController');
+Route::resource('cliente', 'ClienteController');
 
-Route::resource('productos', 'ProductoController');
-Route::resource('ventas', 'VentaController');
+Route::resource('producto', 'ProductoController');
+Route::resource('venta', 'VentaController');

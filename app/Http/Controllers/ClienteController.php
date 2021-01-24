@@ -36,11 +36,11 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
-        //desencripta la desinformacion que hay en el token?
+        //en request esta la informacion del formulario
         $data = $request->except('_token');
         //inserta la informacion
         Cliente::insert($data);
-        return redirect()->route('clientes.index');
+        return redirect()->route('cliente.index');
     }
 
     /**
@@ -74,12 +74,15 @@ class ClienteController extends Controller
      */
     public function update(Request $request,$id)
     {
-        //quiero profundisar mas de como es que obtine los datos del form
+  
+
+        //quiero profundisar mas de como es que obtine los datos del form , en method, el valor que tenemos es put (update)
         $data = $request->except('_token','_method');
 
         //obtengo el cliente que tiene el mismo id y pongo la informacion que traje del formulario
         Cliente::where('id','=', $id)->update($data);
-        return redirect()->route("clientes.index");
+        
+        return redirect()->route("cliente.index");
     }
 
     /**
@@ -91,6 +94,6 @@ class ClienteController extends Controller
     public function destroy($id)
     {
         Cliente::destroy($id);
-        return redirect()->route("clientes.index");
+        return redirect()->route("cliente.index");
     }
 }

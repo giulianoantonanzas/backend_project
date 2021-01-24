@@ -28,10 +28,9 @@
                             <td>{{ $clientes[$i]->fecha_nacimiento }}</td>
                             <td>{{ $clientes[$i]->telefono }}</td>
                             <td>{{ $clientes[$i]->ubicacion }}</td>
-                            <td><a class="btn btn-primary" href="{{ route('clientes.edit', $clientes[$i]) }}"
-                                    role="button">Editar</a></td>
+                            <td><a class="btn btn-primary" href="{{ route('cliente.edit', $clientes[$i]) }}">Editar</a></td>
                             <td>
-                                <form action="{{ route('clientes.destroy', $clientes[$i]->id) }}" method="post">
+                                <form action="{{ route('cliente.destroy', $clientes[$i]->id) }}" method="post">
                                     {{ csrf_field() }} <!-- aprender mas en espesifico que hace esto -->
                                     {{ method_field('DELETE') }}
                                     <button type="submit" class="btn btn btn-danger"
@@ -43,7 +42,7 @@
                 </tbody>
             </table>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <a class="btn btn-primary m-2" href={{ route('clientes.create') }}>Agregar</a>
+                <a class="btn btn-primary m-2" href={{ route('cliente.create') }}>Agregar</a>
                 <a class="btn btn-primary m-2" href="/">Volver</a>
             </div>
         </div>

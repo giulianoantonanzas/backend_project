@@ -36,7 +36,7 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        //desencripta la desinformacion que hay en el token?
+        //en request esta la informacion del formulario
         $data = $request->except('_token');
         //inserta la informacion
         Producto::insert($data);
@@ -62,7 +62,7 @@ class ProductoController extends Controller
      */
     public function edit(Producto $producto)
     {
-        //
+        return view('productos.edit' ,$producto);
     }
 
     /**
@@ -72,9 +72,15 @@ class ProductoController extends Controller
      * @param  \App\Producto  $producto
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Producto $producto)
-    {
-        //
+    public function update(Request $request, $id)
+    {       
+         //quiero profundisar mas de como es que obtine los datos del form
+         $data = $request->except('_token','_method');
+
+         //obtengo el cliente que tiene el mismo id y pongo la informacion que traje del formulario
+         Producto::where("id","=", $id)->update($data);
+
+         return redirect()->route('producto.index');
     }
 
     /**
@@ -83,8 +89,9 @@ class ProductoController extends Controller
      * @param  \App\Producto  $producto
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Producto $producto)
+    public function destroy($id)
     {
-        //
+        Producto::destroy($id);
+        return redirect()->route("producto.index");
     }
 }

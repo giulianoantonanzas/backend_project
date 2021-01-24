@@ -26,16 +26,16 @@
                             <!-- con el '.' concateno los strings-->
                             <td>{{$ventas[$i]->nombre." ".$ventas[$i]->apellido}} </td>
                             <td>{{ $ventas[$i]->total_pagar }} </td>
-                            <td><a class="btn btn-primary" href="#" role="button">Editar</a></td>
-                            <td><a class="btn btn-primary" href="#" role="button">Eliminar</a></td>
+                            <td><a class="btn btn-primary" href="#">Editar</a></td>
+                            <td><a class="btn btn-primary" href="#">Eliminar</a></td>
                         </tr>
                     @endfor
                 </tbody>
             </table>
 
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <a class="btn btn-primary m-2" href="{{route('ventas.create')}}" role="button">Agregar</a>
-                <a class="btn btn-primary m-2" href="/" role="button">Volver</a>
+                <a class="btn btn-primary m-2" href="{{route('venta.create')}}">Agregar</a>
+                <a class="btn btn-primary m-2" href="/">Volver</a>
             </div>
         </div>
     </main>
