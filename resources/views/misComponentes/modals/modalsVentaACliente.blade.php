@@ -1,11 +1,8 @@
 <style>
-    /* The Modal (background) */
-    .modal {
+    .modal-cliente {
         display: none;
         /* Hidden by default */
         position: fixed;
-        /* Stay in place */
-        z-index: 1;
         /* Sit on top */
         padding-top: 100px;
         /* Location of the box */
@@ -21,10 +18,10 @@
         /* Fallback color */
         background-color: rgba(0, 0, 0, 0.4);
         /* Black w/ opacity */
+        z-index: 3;
     }
 
-    /* Modal Content */
-    .modal-content {
+    .modal-content-cliente {
         background-color: #fefefe;
         margin: auto;
         padding: 20px;
@@ -33,15 +30,15 @@
     }
 
     /* The Close Button */
-    .close {
+    .close-cliente {
         color: #aaaaaa;
         float: right;
         font-size: 28px;
         font-weight: bold;
     }
 
-    .close:hover,
-    .close:focus {
+    .close-cliente:hover,
+    .close-cliente:focus {
         color: #000;
         text-decoration: none;
         cursor: pointer;
@@ -50,23 +47,23 @@
 </style>
 
 <!-- The Modal -->
-<div id="myModalCliente" class="modal">
+<div id="myModalCliente" class="modal-cliente">
     <!-- Modal content -->
-    <div class="modal-content">
-        <span class="close">&times;</span>
+    <div class="modal-content-cliente">
+        <span class="close-cliente">&times;</span>
         @include('misComponentes.modals.tablaClienteVenta')
     </div>
 </div>
 
 <script>
     // Get the modal
-    var modal = document.getElementById("myModalCliente");
+    var modalCliente = document.getElementById("myModalCliente");
 
     // Get the button that opens the modal
-    var btn = document.getElementById("btnBuscarCliente");
+    var btnCliente = document.getElementById("btnBuscarCliente");
 
     // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
+    var spanCliente = document.getElementsByClassName("close-cliente")[0];
 
     var seleccionarCliente = document.getElementsByClassName("seleccionar-cliente");
     var clientes = document.getElementsByClassName("item-cliente");
@@ -74,13 +71,13 @@
 
 
     // When the user clicks the button, open the modal 
-    btn.onclick = function() {
-        modal.style.display = "block";
+    btnCliente.onclick = function() {
+        modalCliente.style.display = "block";
     }
 
 
-    span.onclick = function() {
-        modal.style.display = "none";
+    spanCliente.onclick = function() {
+        modalCliente.style.display = "none";
     }
 
 
@@ -92,7 +89,7 @@
      */
     for (let index = 0; index < seleccionarCliente.length; index++) {
         seleccionarCliente[index].onclick = function() {
-            modal.style.display = "none";
+            modalCliente.style.display = "none";
             clienteSeleccionado.rows[0].cells[0].innerHTML = clientes[index].cells[0].innerHTML;
             clienteSeleccionado.rows[0].cells[1].innerHTML = clientes[index].cells[1].innerHTML;
             clienteSeleccionado.rows[0].cells[2].innerHTML = clientes[index].cells[2].innerHTML;
@@ -105,8 +102,8 @@
 
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
+        if (event.target == modalCliente) {
+            modalCliente.style.display = "none";
         }
     }
 

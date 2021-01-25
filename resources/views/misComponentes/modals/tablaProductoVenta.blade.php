@@ -12,7 +12,7 @@
     <tbody>
         <!-- recorro los productos que me envia el controlador y los muestro en una tabla -->
         @for ($i = 0; $i < count($productos); $i++)
-            <tr>
+            <tr class="item-producto">
                 <th scope="row">{{ $productos[$i]->id }}</th>
                 <td>{{ $productos[$i]->nombre }}</td>
                 <td>{{ $productos[$i]->marca }}</td>

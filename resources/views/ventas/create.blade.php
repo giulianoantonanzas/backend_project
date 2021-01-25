@@ -32,9 +32,24 @@
                 </table>
                 <a class="btn btn-primary" id="btnBuscarCliente" href="javascript:void(0);">Buscar</a>
             </div>
-            <a class="btn btn-primary mb-5" id="btnAniadirAlCarro" href="javascript:void(0);">Agregar al carrito</a>
+
             <div class="input-group mb-3">
-                <input type="number" name="iva" placeholder="I.V.A.">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">id</th>
+                            <th scope="col">nombre</th>
+                            <th scope="col">marca</th>
+                            <th scope="col">detalle</th>
+                            <th scope="col">cantidad</th>
+                            <th scope="col">precio</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productoSeleccionados">
+                        
+                    </tbody>
+                </table>
+                <a class="btn btn-primary mb-5" id="btnAniadirAlCarro" href="javascript:void(0);">Agregar al carrito</a>
             </div>
 
 
@@ -42,12 +57,14 @@
                 <input type="number" step="any" name="total_pagar" placeholder="total a pagar" readonly>
                 <a class="btn btn-primary mb" href="#">Calcular</a>
             </div>
+            <div class="input-group mb-3">
+                <input type="number" name="iva" placeholder="I.V.A.">
+            </div>
 
-
-
-            
             @include('misComponentes.modals.modalsVentaProductos')
             @include('misComponentes.modals.modalsVentaACliente')
+            
+
 
             <input type="submit" value="Guardar">
         </form>
