@@ -52,10 +52,9 @@ class VentaController extends Controller
     public function store(Request $request)
     {
         $data = $request->except('_token');
-        var_dump($data);
 
         //genero detalle factura
-        $idDetalleFactura=DetalleFactura::insert([
+        $idDetalleFactura=DetalleFactura::insertGetId([
             'iva'=>$data['iva'],
             'total_pagar'=>$data['total_pagar']
         ]);
@@ -73,7 +72,7 @@ class VentaController extends Controller
             $contador++;
         }
 
-        $idFactura = Factura::insert([
+        $idFactura = Factura::insertGetId([
             'cliente_id'=>(int)$data['id'],
             'detalle_factura_id'=>$idDetalleFactura,
             'tipo'=>$data['tipo'],
