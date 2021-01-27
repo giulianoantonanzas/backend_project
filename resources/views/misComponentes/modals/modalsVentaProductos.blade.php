@@ -60,6 +60,8 @@
 
 
 <script>
+    /*SCRIPT PARA GESTION DEL MODAL (ABRIR , CERRARLO Y PONER LA INFO EN LA TABLA*/
+
     var modalProducto = document.getElementById("myModalProducto");
 
     var btnProducto = document.getElementById("btnAniadirAlCarro");
@@ -78,16 +80,56 @@
         modalProducto.style.display = "none";
     }
 
+
+/* logica los botones de seleccionar (al momento de seleccionar producto) asigna los valores a los inputs y cierra el modals */
     for (let index = 0; index < seleccionarProductos.length; index++) {
         seleccionarProductos[index].onclick = function() {
             modalProducto.style.display = "none";
-            var row = tabla.insertRow(0);
-            row.insertCell(0).innerHTML = productos[index].cells[0].innerHTML;
-            row.insertCell(1).innerHTML = productos[index].cells[1].innerHTML;
-            row.insertCell(2).innerHTML = productos[index].cells[2].innerHTML;
-            row.insertCell(3).innerHTML = productos[index].cells[3].innerHTML;
-            row.insertCell(4).innerHTML = productos[index].cells[4].innerHTML;
-            row.insertCell(5).innerHTML = productos[index].cells[5].innerHTML;
+
+            var id = document.createElement('input');
+            id.type = "number";
+            id.name = "idProducto"+index;
+            id.value = productos[index].cells[0].innerHTML;
+
+            var nombre = document.createElement('input');
+            nombre.type = "text";
+            nombre.name = "nombreProducto"+index;
+            nombre.value = productos[index].cells[1].innerHTML;
+            var marca = document.createElement('input');
+            marca.type = "text";
+            marca.name = "marcaProducto"+index;
+            marca.value = productos[index].cells[2].innerHTML;
+
+            var detalle = document.createElement('input');
+            detalle.type = "text";
+            detalle.name = "detalleProducto"+index;
+            detalle.value = productos[index].cells[3].innerHTML;
+
+            var cantidadDeseada = document.createElement('input');
+            cantidadDeseada.type = "number";
+            cantidadDeseada.name = "cantidad_deseadaProducto"+index;
+            cantidadDeseada.value = productos[index].cells[5].children[0].value;
+
+            var precio = document.createElement('input');
+            precio.type = "number";
+            precio.name = "precioProducto"+index;
+            precio.value = productos[index].cells[6].innerHTML;
+
+            var precioTotal = document.createElement('input');
+            precioTotal.type = "number";
+            precioTotal.name = "precio_totalProducto"+index;
+            precioTotal.value = (productos[index].cells[6].innerHTML * productos[index].cells[5].children[0].value);
+
+
+
+            var row = tabla.insertRow();
+            row.insertCell(0).appendChild(id)
+            row.insertCell(1).appendChild(nombre)
+            row.insertCell(2).appendChild(marca)
+            row.insertCell(3).appendChild(detalle)
+            row.insertCell(4).appendChild(cantidadDeseada)
+            row.insertCell(5).appendChild(precio)
+            row.insertCell(6).appendChild(precioTotal)
         }
     }
 

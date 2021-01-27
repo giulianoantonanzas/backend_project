@@ -56,25 +56,19 @@
 </div>
 
 <script>
-    // Get the modal
+    /*SCRIPT PARA GESTION DEL MODAL (ABRIR , CERRARLO Y PONER LA INFO EN LA TABLA*/
+
     var modalCliente = document.getElementById("myModalCliente");
-
-    // Get the button that opens the modal
     var btnCliente = document.getElementById("btnBuscarCliente");
-
-    // Get the <span> element that closes the modal
     var spanCliente = document.getElementsByClassName("close-cliente")[0];
 
     var seleccionarCliente = document.getElementsByClassName("seleccionar-cliente");
     var clientes = document.getElementsByClassName("item-cliente");
-    var clienteSeleccionado = document.getElementById("clienteSeleccionado");
+    var clienteSeleccionado = document.getElementsByClassName("inputClienteSeleccionado");
 
-
-    // When the user clicks the button, open the modal 
     btnCliente.onclick = function() {
         modalCliente.style.display = "block";
     }
-
 
     spanCliente.onclick = function() {
         modalCliente.style.display = "none";
@@ -87,19 +81,34 @@
 
      hace que cierre el modal y que fije el cliente seleccionado
      */
+
+
+
     for (let index = 0; index < seleccionarCliente.length; index++) {
         seleccionarCliente[index].onclick = function() {
             modalCliente.style.display = "none";
-            clienteSeleccionado.rows[0].cells[0].innerHTML = clientes[index].cells[0].innerHTML;
-            clienteSeleccionado.rows[0].cells[1].innerHTML = clientes[index].cells[1].innerHTML;
-            clienteSeleccionado.rows[0].cells[2].innerHTML = clientes[index].cells[2].innerHTML;
-            clienteSeleccionado.rows[0].cells[3].innerHTML = clientes[index].cells[3].innerHTML;
-            clienteSeleccionado.rows[0].cells[4].innerHTML = clientes[index].cells[4].innerHTML;
-            clienteSeleccionado.rows[0].cells[5].innerHTML = clientes[index].cells[5].innerHTML;
-            clienteSeleccionado.rows[0].cells[6].innerHTML = clientes[index].cells[6].innerHTML;
+            clienteSeleccionado[0].value = clientes[index].cells[0].innerHTML;
+            clienteSeleccionado[1].value = clientes[index].cells[1].innerHTML;
+            clienteSeleccionado[2].value = clientes[index].cells[2].innerHTML;
         };
     }
 
+
+
+    /*
+        function setClienteData(numeroCliente) {
+            numeroCliente=numeroCliente-1;
+            return [clientes[numeroCliente].cells[0].innerHTML,
+                clientes[numeroCliente].cells[1].innerHTML,
+                clientes[numeroCliente].cells[2].innerHTML,
+                clientes[numeroCliente].cells[3].innerHTML,
+                clientes[numeroCliente].cells[4].innerHTML,
+                clientes[numeroCliente].cells[5].innerHTML,
+                clientes[numeroCliente].cells[6].innerHTML
+            ];
+
+        }
+    */
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
         if (event.target == modalCliente) {

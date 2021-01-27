@@ -19,6 +19,7 @@ class CreateProductoFacturadosTable extends Migration
             $table->unsignedBigInteger('producto_id');//creo la columna que sera transformada en fk
 
             $table->integer("cantidad");
+            $table->float('precio_total');
 
             $table->foreign("detalle_factura_id")->references("id")->on("detalle_facturas")//transformo la columna en una fk
             ->onDelete("cascade")

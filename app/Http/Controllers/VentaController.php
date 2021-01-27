@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Cliente;
+use App\DetalleFactura;
+use App\Factura;
 use App\Producto;
+use App\ProductoFacturado;
 use App\Venta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Mockery\Undefined;
 
 class VentaController extends Controller
 {
@@ -39,7 +43,6 @@ class VentaController extends Controller
     }
 
 
-
     /**
      * Store a newly created resource in storage.
      *
@@ -48,6 +51,40 @@ class VentaController extends Controller
      */
     public function store(Request $request)
     {
+        $data = $request->except('_token');
+        var_dump($data);
+
+        //genero detalle factura
+        $idDetalleFactura=DetalleFactura::insert([
+            'iva'=>$data['iva'],
+            'total_pagar'=>$data['total_pagar']
+        ]);
+
+        //mientras haya productos que hayan sido facturados, hay que ir guardandolos.
+        //genera productos facturados.
+         $contador=0;
+        while (isset($data["idProducto$contador"])) {
+            ProductoFacturado::insert([
+                'detalle_factura_id'=> $idDetalleFactura,
+                'producto_id'=> (int)$data["idProducto$contador"],
+                'cantidad'=> (int)$data["cantidad_deseadaProducto$contador"],
+                'precio_total'=>(int)$data["precio_totalProducto$contador"]
+            ]);
+            $contador++;
+        }
+
+        $idFactura = Factura::insert([
+            'cliente_id'=>(int)$data['id'],
+            'detalle_factura_id'=>$idDetalleFactura,
+            'tipo'=>$data['tipo'],
+            'fecha_facturacion'=>$data['fecha_facturacion']
+        ]);
+
+        Venta::insert([
+            'factura_id'=>$idFactura
+        ]);
+
+        return redirect()->route('venta.index');
     }
 
     /**
