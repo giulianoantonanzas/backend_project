@@ -18,11 +18,10 @@ class CreateFacturasTable extends Migration
             $table->unsignedBigInteger('cliente_id');
             $table->unsignedBigInteger('detalle_factura_id');
 
-            $table->text("tipo");
+            $table->string("tipo");
             $table->date("fecha_facturacion");
 
             $table->foreign("cliente_id")->references('id')->on('clientes');
-            
             $table->foreign("detalle_factura_id")->references('id')->on('detalle_facturas')
             ->onDelete("cascade")
             ->onUpdate("cascade");

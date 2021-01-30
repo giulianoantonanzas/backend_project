@@ -14,9 +14,17 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        $productos['productos']=Producto::all(); // retorna los productos de la base de datos.
-        return view('productos.index',$productos); //gemero la vista de productos.blade.php y le envio como parametro , los productos buscados de la bd.
+        $productos['productos'] = Producto::all(); // retorna los productos de la base de datos.
+        return view('productos.index', $productos); //gemero la vista de productos.blade.php y le envio como parametro , los productos buscados de la bd.
     }
+
+
+
+    public function search(Request $request)
+    {
+    }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -62,7 +70,7 @@ class ProductoController extends Controller
      */
     public function edit(Producto $producto)
     {
-        return view('productos.edit' ,$producto);
+        return view('productos.edit', $producto);
     }
 
     /**
@@ -73,14 +81,14 @@ class ProductoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {       
-         //quiero profundisar mas de como es que obtine los datos del form
-         $data = $request->except('_token','_method');
+    {
+        //quiero profundisar mas de como es que obtine los datos del form
+        $data = $request->except('_token', '_method');
 
-         //obtengo el cliente que tiene el mismo id y pongo la informacion que traje del formulario
-         Producto::where("id","=", $id)->update($data);
+        //obtengo el cliente que tiene el mismo id y pongo la informacion que traje del formulario
+        Producto::where("id", "=", $id)->update($data);
 
-         return redirect()->route('producto.index');
+        return redirect()->route('producto.index');
     }
 
     /**

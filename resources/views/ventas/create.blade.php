@@ -10,15 +10,16 @@
 
 
             <div class="input-group mb-3">
-                <input type="date" name="fecha_facturacion">
+                <input class="form-control" type="date" name="fecha_facturacion">
                 <label for="fechaFacturacion"> Fecha de Facturacion</label>
             </div>
 
             <div class="input-group mb-3">
-                <input type="text" name="tipo" placeholder="Tipo de factura">
+                <input class="form-control" type="text" name="tipo" placeholder="Tipo de factura">
             </div>
 
-            <div class="input-group mb-3">
+            <h2 class="mt-5">Cliente</h2>
+            <div class="input-group mb-5">
                 <table class="table table-hover" id="clienteSeleccionado">
                     <tr>
                         <th scope="col">id</th>
@@ -34,6 +35,7 @@
                 <a class="btn btn-primary" id="btnBuscarCliente" href="javascript:void(0);">Buscar</a>
             </div>
 
+            <h2 class="mt-5">Productos</h2>
             <div class="input-group mb-3">
                 <table class="table table-hover">
                     <thead>
@@ -57,11 +59,11 @@
 
 
             <div class="input-group mb-3">
-                <input type="number" id="iva" name="iva" placeholder="I.V.A.">
+                <input class="form-control" type="number" id="iva" name="iva" placeholder="I.V.A.">
             </div>
 
             <div class="input-group mb-3">
-                <input type="number" step="any" id="totalPagar" name="total_pagar" id="totalPagar"
+                <input class="form-control" type="number" step="any" id="totalPagar" name="total_pagar" id="totalPagar"
                     placeholder="total a pagar" readonly>
                 <a class="btn btn-primary mb" id="calculcarTotal" href="javascript:void(0);">Calcular</a>
             </div>
@@ -69,7 +71,7 @@
 
             @include('misComponentes.modals.modalsVentaProductos')
             @include('misComponentes.modals.modalsVentaACliente')
-            <input type="submit" value="Guardar">
+            <input class="btn btn-primary mb-3" type="submit" value="Guardar">
         </form>
     </div>
 

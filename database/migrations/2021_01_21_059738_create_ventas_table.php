@@ -15,7 +15,7 @@ class CreateVentasTable extends Migration
     {
         Schema::create('ventas', function (Blueprint $table) {
             $table->bigIncrements("id");
-            
+
             //foreingkey - digo que una venta tiene una factura, que la enlazo desde fk_factura con el id_factura.
             $table->foreignId('factura_id')->references("id")->on('facturas')
             ->onDelete("cascade")
@@ -23,6 +23,13 @@ class CreateVentasTable extends Migration
 
             $table->timestamps();
         });
+
+        /* ESTA ES OTRA FORMA DE ASIGNAR LAS FOREING KEYS
+        Schema::table('ventas', function (Blueprint $table) {
+            $table->foreignId('factura_id')->references("id")->on('facturas')
+                ->onDelete("cascade")
+                ->onUpdate("cascade");
+        });*/
     }
 
     /**

@@ -15,12 +15,13 @@ class CreateClientesTable extends Migration
     {
         Schema::create('clientes', function (Blueprint $table) {
             $table->bigIncrements("id");
-            $table->text("nombre");
-            $table->text("apellido");
+            $table->string("nombre");
+            $table->string("apellido");
             $table->char("genero");
             $table->date("fecha_nacimiento");
-            $table->text("telefono");
-            $table->text("ubicacion");
+            $table->string("telefono");
+            $table->string("ubicacion");
+            $table->text('image');//quiero ver si es que puedo setear una imagen.
             $table->timestamps();
         });
     }

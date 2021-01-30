@@ -10,7 +10,6 @@ use App\ProductoFacturado;
 use App\Venta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Mockery\Undefined;
 
 class VentaController extends Controller
 {
@@ -21,13 +20,20 @@ class VentaController extends Controller
      */
     public function index()
     {
-        // consulta sql , traigo las ventas con todas sus relaciones.
+        // consulta sql , traigo las ventas con todas sus relaciones. y muestro lo que quiero
         $ventas['ventas'] = DB::select('SELECT v.id, v.factura_id ,f.fecha_facturacion,c.nombre,c.apellido,df.total_pagar 
         FROM ventas v,  facturas f ,clientes c, detalle_facturas df
         WHERE v.factura_id=f.id and f.cliente_id=c.id and f.detalle_factura_id =df.id');
 
         return view('ventas.index', $ventas);
     }
+
+
+    public function search(Request $request)
+    {
+    }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -36,6 +42,7 @@ class VentaController extends Controller
      */
     public function create()
     {
+        //envio los todos los clientes y los productos. Ellos seran gestionados con las tablas y mostrare sus valores.
         $productos['productos'] = Producto::all();
         $clientes['clientes'] = Cliente::all();
         return view('ventas.create', $productos, $clientes);
@@ -53,34 +60,36 @@ class VentaController extends Controller
     {
         $data = $request->except('_token');
 
-        //genero detalle factura
-        $idDetalleFactura=DetalleFactura::insertGetId([
-            'iva'=>$data['iva'],
-            'total_pagar'=>$data['total_pagar']
+        //genero detalle factura y obtengo su id
+        $idDetalleFactura = DetalleFactura::insertGetId([
+            'iva' => $data['iva'],
+            'total_pagar' => $data['total_pagar']
         ]);
 
         //mientras haya productos que hayan sido facturados, hay que ir guardandolos.
         //genera productos facturados.
-         $contador=0;
+        $contador = 0;
         while (isset($data["idProducto$contador"])) {
             ProductoFacturado::insert([
-                'detalle_factura_id'=> $idDetalleFactura,
-                'producto_id'=> (int)$data["idProducto$contador"],
-                'cantidad'=> (int)$data["cantidad_deseadaProducto$contador"],
-                'precio_total'=>(int)$data["precio_totalProducto$contador"]
+                'detalle_factura_id' => $idDetalleFactura,
+                'producto_id' => (int)$data["idProducto$contador"],
+                'cantidad' => (int)$data["cantidad_deseadaProducto$contador"],
+                'precio_total' => (int)$data["precio_totalProducto$contador"]
             ]);
             $contador++;
         }
 
+        //genero una factura y obtengo su id
         $idFactura = Factura::insertGetId([
-            'cliente_id'=>(int)$data['id'],
-            'detalle_factura_id'=>$idDetalleFactura,
-            'tipo'=>$data['tipo'],
-            'fecha_facturacion'=>$data['fecha_facturacion']
+            'cliente_id' => (int)$data['id'],
+            'detalle_factura_id' => $idDetalleFactura,
+            'tipo' => $data['tipo'],
+            'fecha_facturacion' => $data['fecha_facturacion']
         ]);
 
+        //genero la venta
         Venta::insert([
-            'factura_id'=>$idFactura
+            'factura_id' => $idFactura
         ]);
 
         return redirect()->route('venta.index');

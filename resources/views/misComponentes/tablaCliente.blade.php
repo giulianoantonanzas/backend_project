@@ -1,4 +1,3 @@
-
 <table class="table table-hover">
     <thead>
         <tr>
@@ -9,6 +8,7 @@
             <th scope="col">fecha de nacimiento</th>
             <th scope="col">telefono</th>
             <th scope="col">ubicacion</th>
+            <th scope="col">imagen</th>
         </tr>
     </thead>
     <tbody>
@@ -25,6 +25,7 @@
                 <td>{{ $clientes[$i]->fecha_nacimiento }}</td>
                 <td>{{ $clientes[$i]->telefono }}</td>
                 <td>{{ $clientes[$i]->ubicacion }}</td>
+                <td><img src="{{ asset('storage') . '/' . $clientes[$i]->image }}" width="50"></td>
                 <td><a class="btn btn-primary" href="{{ route('cliente.edit', $clientes[$i]) }}">Editar</a></td>
                 <td>
                     <form action="{{ route('cliente.destroy', $clientes[$i]->id) }}" method="post">

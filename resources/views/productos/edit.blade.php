@@ -13,23 +13,23 @@
                         -->
             {{ method_field('PATCH') }}
             <div class="input-group mb-3">
-                <input type="text" id="nombre" name="nombre" placeholder="Nombre" value="{{$nombre}}">
+                <input class="form-control" type="text" id="nombre" name="nombre" placeholder="Nombre" value="{{$nombre}}">
             </div>
             <div class="input-group mb-3">
-                <input type="text" id="marca" name="marca" placeholder="Marca" value="{{$marca}}">
+                <input class="form-control" type="text" id="marca" name="marca" placeholder="Marca" value="{{$marca}}">
             </div>
             <div class="input-group mb-3">
-                <input type="text" id="detalle" name="detalle" placeholder="Detalle" value="{{$detalle}}">
+                <input class="form-control" type="text" id="detalle" name="detalle" placeholder="Detalle" value="{{$detalle}}">
             </div>
             <div class="input-group mb-3">
-                <input type="number" id="cantidad" name="cantidad" placeholder="Cantidad" value="{{$cantidad}}">
+                <input class="form-control" type="number" id="cantidad" name="cantidad" placeholder="Cantidad" value="{{$cantidad}}">
             </div>
 
             <div class="input-group mb-3">
-                <input type="number" step="any" id="precio" name="precio" placeholder="Precio Unitario" value="{{$precio}}">
+                <input class="form-control" type="number" step="any" id="precio" name="precio" placeholder="Precio Unitario" value="{{$precio}}">
             </div>
             
-            <input type="submit" value="Guardar" >
+            <input class="btn btn-primary" type="submit" value="Guardar" >
         </form>
     </div>
 
