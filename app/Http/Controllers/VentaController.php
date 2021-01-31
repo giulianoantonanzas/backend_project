@@ -21,9 +21,10 @@ class VentaController extends Controller
     public function index()
     {
         // consulta sql , traigo las ventas con todas sus relaciones. y muestro lo que quiero
-        $ventas['ventas'] = DB::select('SELECT v.id, v.factura_id ,f.fecha_facturacion,c.nombre,c.apellido,df.total_pagar 
-        FROM ventas v,  facturas f ,clientes c, detalle_facturas df
-        WHERE v.factura_id=f.id and f.cliente_id=c.id and f.detalle_factura_id =df.id');
+        $ventas['ventas'] = DB::select('SELECT v.id, v.factura_id ,f.fecha_facturacion,c.nombre,c.apellido,df.total_pagar
+        FROM ventas v JOIN facturas f ON v.factura_id=f.id 
+        JOIN clientes c ON f.cliente_id=c.id 
+        JOIN detalle_facturas df ON f.detalle_factura_id=df.id');
 
         return view('ventas.index', $ventas);
     }
@@ -31,7 +32,34 @@ class VentaController extends Controller
 
     public function search(Request $request)
     {
+        $data = $request->except('_token'); //obtengo el texto enviado desde la busqueda
+        $data = $data['search'];
+
+        //genero la busqueda en donde obtengo los clientes con el dato enviado.
+        $ventas['ventas'] = DB::select('SELECT v.id, v.factura_id ,f.fecha_facturacion,c.nombre,c.apellido,df.total_pagar
+        FROM ventas v JOIN facturas f ON v.factura_id=f.id 
+        JOIN clientes c ON f.cliente_id=c.id 
+        JOIN detalle_facturas df ON f.detalle_factura_id=df.id 
+        JOIN producto_facturados pf ON pf.detalle_factura_id=df.id
+        JOIN productos p ON pf.producto_id=p.id
+
+        WHERE c.nombre like "' .$data . '" 
+        OR c.apellido like "' . $data . '" 
+        OR p.nombre like "' . $data . '" 
+        OR p.marca like "' . $data . '" 
+        OR p.detalle like "' . $data . '"');
+
+
+        if(count($ventas['ventas'])==0){ //si no encontra ningun resultado que simplemente carge la tabla con los valores por def
+            $ventas['ventas'] = DB::select('SELECT v.id, v.factura_id ,f.fecha_facturacion,c.nombre,c.apellido,df.total_pagar
+            FROM ventas v JOIN facturas f ON v.factura_id=f.id 
+            JOIN clientes c ON f.cliente_id=c.id 
+            JOIN detalle_facturas df ON f.detalle_factura_id=df.id');
+        }
+
+        return view("ventas.index", $ventas);
     }
+
 
 
 
@@ -135,8 +163,15 @@ class VentaController extends Controller
      * @param  \App\Venta  $venta
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Venta $venta)
+    public function destroy($id)
     {
-        //
+        $data=Venta::find($id);//obtengo la venta
+
+        $factura=Factura::find($data->factura_id);//obtengo la factura de esa venta
+
+        //solo necesito eliminar el detalle factura y como dije que la conexion en cascada es de eliminar ,elemina todas las conexiones
+        DetalleFactura::destroy($factura->detalle_factura_id); 
+
+        return redirect()->route("venta.index");
     }
 }

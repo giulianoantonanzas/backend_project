@@ -23,10 +23,8 @@ class ClienteController extends Controller
     public function search(Request $request)
     {
         $data = $request->except('_token'); //obtengo el texto enviado desde la busqueda
+        $data=$data['search'];
 
-        var_dump($data);
-
-        die();
         //genero la busqueda en donde obtengo los clientes con el dato enviado.
         $clientes['clientes'] = Cliente::select()
             ->where('nombre','like',"%$data%")

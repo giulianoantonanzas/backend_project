@@ -22,8 +22,18 @@ class ProductoController extends Controller
 
     public function search(Request $request)
     {
-    }
+        $data = $request->except('_token'); //obtengo el texto enviado desde la busqueda
+        $data=$data['search'];
 
+        //genero la busqueda en donde obtengo los clientes con el dato enviado.
+        $productos['productos'] = Producto::select()
+            ->where('nombre','like',"%$data%")
+            ->orWhere('marca','like',"%$data%")
+            ->orWhere('detalle','like',"%$data%")
+            ->get();
+
+        return view("productos.index", $productos);
+    }
 
 
     /**

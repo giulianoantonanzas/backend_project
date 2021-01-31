@@ -9,7 +9,7 @@
             <form class="d-flex" action="{{ route('cliente.search') }}" method="POST">
                 {{ csrf_field() }}
                 <div class="input-group mb-3">
-                    <input class="form-control me-2" type="search" placeholder="Buscar">
+                    <input class="form-control me-2" name="search" type="search" placeholder="Buscar">
                     <span class="input-group-btn">
                         <button class="btn btn-outline-success" type="submit">Search</button>
                     </span>
