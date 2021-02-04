@@ -3,11 +3,39 @@
 namespace App\Http\Controllers;
 
 use App\Cliente;
+use Facade\FlareClient\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class ClienteController extends Controller
 {
+
+
+    //api- rest
+    public function list()
+    {
+        $data = Cliente::all();
+
+        //return Response()->json(["clientes"=>$data , 200]);
+        return Response()->json([$data, 200]);
+    }
+
+    public function save(Request $request)
+    {
+        $cliente=new Cliente();
+        $cliente->nombre=$request->nombre;
+        $cliente->apellido=$request->apellido;
+        $cliente->genero=$request->nombre;
+        $cliente->fecha_nacimiento=$request->fecha_nacimiento;
+        $cliente->telefono=$request->telefono;
+        $cliente->ubicacion=$request->ubicacion;
+        $cliente->save();
+        return response()->json("la informacion se guardo con exito",201);
+    }
+
+
+
+
     /**
      * Display a listing of the resource.
      *
@@ -23,13 +51,13 @@ class ClienteController extends Controller
     public function search(Request $request)
     {
         $data = $request->except('_token'); //obtengo el texto enviado desde la busqueda
-        $data=$data['search'];
+        $data = $data['search'];
 
         //genero la busqueda en donde obtengo los clientes con el dato enviado.
         $clientes['clientes'] = Cliente::select()
-            ->where('nombre','like',"%$data%")
-            ->orWhere('apellido','like',"%$data%")
-            ->orWhere('ubicacion','like',"%$data%")
+            ->where('nombre', 'like', "%$data%")
+            ->orWhere('apellido', 'like', "%$data%")
+            ->orWhere('ubicacion', 'like', "%$data%")
             ->get();
 
         return view("clientes.index", $clientes);
@@ -58,8 +86,8 @@ class ClienteController extends Controller
         $data = $request->except('_token');
         //inserta la informacion
 
-        if($request->hasFile('image')){
-            $data['image'] = $request->file('image')->store('uploads','public');//que hace el store upload public?
+        if ($request->hasFile('image')) {
+            $data['image'] = $request->file('image')->store('uploads', 'public'); //que hace el store upload public?
         }
         Cliente::insert($data);
         return redirect()->route('cliente.index');
@@ -94,20 +122,20 @@ class ClienteController extends Controller
      * @param  \App\Cliente  $cliente
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
         //quiero profundisar mas de como es que obtine los datos del form , en method, el valor que tenemos es put (update)
-        $data = $request->except('_token','_method');
+        $data = $request->except('_token', '_method');
 
-        if($request->hasFile('image')){
-            $cliente=Cliente::findOrFail($id);
+        if ($request->hasFile('image')) {
+            $cliente = Cliente::findOrFail($id);
             Storage::delete("/public/$cliente->image"); // elimina la imagen anterior
-            $data['image'] = $request->file('image')->store('uploads','public'); // carga la nueva imagen
+            $data['image'] = $request->file('image')->store('uploads', 'public'); // carga la nueva imagen
         }
 
         //obtengo el cliente que tiene el mismo id y pongo la informacion que traje del formulario
-        Cliente::where('id','=', $id)->update($data);
-        
+        Cliente::where('id', '=', $id)->update($data);
+
         return redirect()->route("cliente.index");
     }
 
